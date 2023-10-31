@@ -13,11 +13,20 @@ import {
 export class UserModel {
   // @PrimaryGeneratedColumn()
   // @PrimaryGeneratedColumn('uuid')
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn()
   // @PrimaryColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    name: 'title',
+    length: 300,
+    nullable: true,
+    update: true,
+    select: false,
+    default: 'default value',
+    unique: true,
+  })
   title: string;
 
   @CreateDateColumn()
