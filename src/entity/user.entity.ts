@@ -64,7 +64,7 @@ export class UserModel {
   additionalId: number;
 
   @OneToOne(() => ProfileModel, (profile) => profile.user, {
-    eager: true,
+    eager: false,
     cascade: true,
     nullable: true,
     onDelete: 'RESTRICT',

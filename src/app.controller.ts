@@ -29,13 +29,45 @@ export class AppController {
 
   @Get('users')
   getUsers() {
-    return this.userRepository.find({});
+    return this.userRepository.find({
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        version: true,
+        profile: {
+          id: true,
+        },
+      },
+      where: [
+        // {
+        //   profile: {
+        //     id: 3,
+        //   },
+        // },
+      ],
+
+      // 관계를 가져오는 법
+      relations: {
+        profile: true,
+      },
+
+      // ASC: 오름차순, DESC: 내림차순
+      order: {
+        id: 'DESC',
+      },
+
+      // skip: 처음 몇개를 제외할 지 기본값: 0
+      skip: 0,
+      // take: 몇개를 가져올 지 기본값: 0, 0이면 전부 가져온다.
+      take: 2,
+    });
   }
 
   @Post('users')
   postUser() {
     return this.userRepository.save({
-      role: ROLE.ADMIN,
+      email: '1234@gmail.com',
     });
   }
 
@@ -49,6 +81,7 @@ export class AppController {
 
     return this.userRepository.save({
       ...user,
+      email: user.email + '0',
     });
   }
 
